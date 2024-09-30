@@ -1,34 +1,56 @@
 "use client";
 import { Card, CardFooter, Image, Button } from "@nextui-org/react";
 
-const Slider = () => {
+
+const SliderBanner = () => {
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   slidesToShow: 3,
+  //   slidesToScroll: 1,
+  //   centerMode: true,
+  //   centerPadding: "0",
+
+  //   autoplay: true,
+  //   speed: 2000,
+  //   autoplaySpeed: 2000,
+  //   cssEase: "linear",
+  // };
+
   return (
-    <div className="overflow-x-auto whitespace-nowrap mb-8">
-      {[...Array(10)].map((_, i) => (
-        <Card key={i} isFooterBlurred radius="lg" className="border-none">
-          <Image
-            alt="Woman listing to music"
-            className="object-cover"
-            height={200}
-            src="https://nextui.org/images/hero-card.jpeg"
-            width={200}
-          />
-          <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <p className="text-tiny text-white/80">Available soon.</p>
-            <Button
-              className="text-tiny text-white bg-black/20"
-              variant="flat"
-              color="default"
-              radius="lg"
-              size="sm"
-            >
-              Notify me
-            </Button>
-          </CardFooter>
-        </Card>
-      ))}
+    <div className="overflow-x-auto whitespace-nowrap  mb-8">
+   
+        {[...Array(2)].map((_, i) => (
+          <Card
+            key={i}
+            isFooterBlurred
+            radius="lg"
+            className=" styles.slide border-none"
+          >
+            <Image
+              alt="Woman listing to music"
+              className="object-cover "
+              height={200}
+              src="https://nextui.org/images/hero-card.jpeg"
+              width={200}
+            />
+            <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+              <p className="text-tiny text-white/80">Available soon.</p>
+              <Button
+                className="text-tiny text-white bg-black/20"
+                variant="flat"
+                color="default"
+                radius="lg"
+                size="sm"
+              >
+                Notify me
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+   
     </div>
   );
 };
 
-export default Slider;
+export default SliderBanner;
