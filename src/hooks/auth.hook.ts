@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { userLogin, userRegister } from "@/services/AuthService";
+import {
+  incrementFollower,
+  userLogin,
+  userRegister,
+} from "@/services/AuthService";
 import { useMutation } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -23,6 +27,19 @@ export const useUserLogin = () => {
     mutationFn: async (userData) => await userLogin(userData),
     onSuccess: () => {
       toast.success("login successfully");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const useIncrementFollower = () => {
+  return useMutation({
+    mutationKey: ["INCREMENT_FOLLOWER"],
+    mutationFn: async (id: string) => await incrementFollower(id),
+    onSuccess: () => {
+      toast.success("followed");
     },
     onError: (error) => {
       toast.error(error.message);

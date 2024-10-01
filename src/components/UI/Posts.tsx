@@ -1,5 +1,7 @@
 "use client";
 import { useUser } from "@/context/user.provider";
+import { useIncrementDisLike, useIncrementLike } from "@/hooks/animal.hook";
+import { useIncrementFollower } from "@/hooks/auth.hook";
 import { IAnimal } from "@/types";
 import { Card, CardBody } from "@nextui-org/card";
 import {
@@ -15,9 +17,17 @@ import {
 import { BiSolidDislike, BiSolidLike } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaCaretRight } from "react-icons/fa";
+import { IoMdNotifications } from "react-icons/io";
 
 const Posts = ({ data }: { data: IAnimal[] }) => {
   const { user } = useUser();
+  const { mutate: handleIncrementLike, isPending: isLikePending } =
+    useIncrementLike();
+  const { mutate: handleIncrementDisLike, isPending: disLikePending } =
+    useIncrementDisLike();
+
+  const { mutate: handleIncrementFollower, isPending: followerPending } =
+    useIncrementFollower();
 
   return (
     <div className="border border-black">
@@ -27,20 +37,26 @@ const Posts = ({ data }: { data: IAnimal[] }) => {
           className=" border-b-1 p-6 border-black rounded-none"
         >
           <CardBody>
-            <div className="flex justify-between text-center items-center mb-4">
-              <div>
+            <div className="flex justify-between text-center items-center mb-8">
+              <div className="flex items-center ">
                 <Avatar src={animal?.user?.image} size="lg" className="mr-4" />
-                <div>
-                  <p className="font-semibold text-[#05caec]">
-                    Follower: {animal?.user?.follower}
-                  </p>
-                </div>
+
+                <Button
+                  isDisabled={followerPending}
+                  onClick={() => handleIncrementFollower(animal?.user?._id)}
+                  variant="light"
+                >
+                  <IoMdNotifications className="text-[#05caec] text-xl" />
+                  {animal?.user?.follower}
+                </Button>
               </div>
               <div>
                 <Dropdown>
                   <DropdownTrigger>
                     <Button
-                      isDisabled={user?.userId !== animal?.user?._id}
+                      isDisabled={
+                        user ? user?.userId !== animal?.user?._id : true
+                      }
                       color="default"
                       variant="light"
                     >
@@ -78,11 +94,20 @@ const Posts = ({ data }: { data: IAnimal[] }) => {
             </p>
 
             <div className="flex items-center  space-x-4">
-              <Button variant="light">
+              <Button
+                isDisabled={isLikePending}
+                onClick={() => handleIncrementLike(animal?._id)}
+                variant="light"
+              >
                 <BiSolidLike className="text-[#05caec] text-xl" />
                 {animal?.like}
               </Button>
-              <Button variant="light">
+
+              <Button
+                isDisabled={disLikePending}
+                onClick={() => handleIncrementDisLike(animal?._id)}
+                variant="light"
+              >
                 <BiSolidDislike className="text-[#7f9599] text-xl" />
                 {animal?.disLike}
               </Button>

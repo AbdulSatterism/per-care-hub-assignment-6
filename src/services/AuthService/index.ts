@@ -2,6 +2,7 @@
 "use server";
 import axiosInstance from "@/lib/axiosInstance";
 import { jwtDecode } from "jwt-decode";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
@@ -51,4 +52,16 @@ export const getCurrentUser = async () => {
   }
 
   return decodedToken;
+};
+
+export const incrementFollower = async (id: string) => {
+  try {
+    const { data } = await axiosInstance.patch(`/user/follower-increase/${id}`);
+
+    revalidateTag("animalPosts");
+
+    return data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
 };
