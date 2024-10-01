@@ -1,10 +1,24 @@
 "use client";
+import { useUser } from "@/context/user.provider";
 import { IAnimal } from "@/types";
 import { Card, CardBody } from "@nextui-org/card";
-import { Avatar, Button, Image, Input } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Image,
+  Input,
+} from "@nextui-org/react";
+import { BiSolidDislike, BiSolidLike } from "react-icons/bi";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaCaretRight } from "react-icons/fa";
 
 const Posts = ({ data }: { data: IAnimal[] }) => {
+  const { user } = useUser();
+
   return (
     <div className="border border-black">
       {data?.map((animal: IAnimal) => (
@@ -13,10 +27,31 @@ const Posts = ({ data }: { data: IAnimal[] }) => {
           className=" border-b-1 p-6 border-black rounded-none"
         >
           <CardBody>
-            <div className="flex items-center mb-4">
-              <Avatar src={animal?.user?.image} size="lg" className="mr-4" />
+            <div className="flex justify-between text-center items-center mb-4">
               <div>
-                <p className="font-semibold">Follower</p>
+                <Avatar src={animal?.user?.image} size="lg" className="mr-4" />
+                <div>
+                  <p className="font-semibold text-[#05caec]">
+                    Follower: {animal?.user?.follower}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <Dropdown>
+                  <DropdownTrigger>
+                    <Button
+                      isDisabled={user?.userId !== animal?.user?._id}
+                      color="default"
+                      variant="light"
+                    >
+                      <BsThreeDotsVertical className="text-[#05caec] text-xl" />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu aria-label="Static Actions">
+                    <DropdownItem key="edit">Edit</DropdownItem>
+                    <DropdownItem key="delete">Delete</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
               </div>
             </div>
 
@@ -43,8 +78,14 @@ const Posts = ({ data }: { data: IAnimal[] }) => {
             </p>
 
             <div className="flex items-center  space-x-4">
-              <Button>Like :{animal?.like}</Button>
-              <Button>Dislike :{animal?.disLike}</Button>
+              <Button variant="light">
+                <BiSolidLike className="text-[#05caec] text-xl" />
+                {animal?.like}
+              </Button>
+              <Button variant="light">
+                <BiSolidDislike className="text-[#7f9599] text-xl" />
+                {animal?.disLike}
+              </Button>
               <Input placeholder="Add a comment..." />
             </div>
           </CardBody>
