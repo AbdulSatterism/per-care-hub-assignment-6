@@ -4,6 +4,22 @@
 import { envConfig } from "@/envConfig";
 import axiosInstance from "@/lib/axiosInstance";
 import { revalidateTag } from "next/cache";
+import { FieldValues } from "react-hook-form";
+
+export const createAnimalPost = async (postData: FieldValues) => {
+  try {
+    const { data } = await axiosInstance.post(
+      "/animal/create-animal",
+      postData
+    );
+
+    revalidateTag("animalPosts");
+
+    return data;
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};
 
 export const getAnimalPosts = async () => {
   const fetchOption = {

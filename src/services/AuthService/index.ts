@@ -20,6 +20,10 @@ export const userRegister = async (userData: FieldValues) => {
   }
 };
 
+export const logout = () => {
+  cookies().delete("accessToken");
+};
+
 export const userLogin = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/auth/login", userData);

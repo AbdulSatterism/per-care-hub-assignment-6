@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import PCForm from "@/components/form/PCForm";
@@ -8,6 +9,7 @@ import { useUserRegistration } from "@/hooks/auth.hook";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
 const Register = () => {
   const { mutate: handleRegister, isPending } = useUserRegistration();
@@ -35,8 +37,8 @@ const Register = () => {
         isDeleted: false,
       };
       handleRegister(registerData);
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      toast.error(err.message);
     }
   };
 
