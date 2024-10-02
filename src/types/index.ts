@@ -34,3 +34,18 @@ export interface IUser {
   updatedAt: string;
   __v: number;
 }
+
+export interface IUserAll {
+  _id: string;
+  name: string;
+  email: string;
+  image: string;
+  phone: string;
+  role: string;
+  payment: string;
+  follower: number;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

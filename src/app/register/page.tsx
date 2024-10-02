@@ -8,11 +8,13 @@ import { envConfig } from "@/envConfig";
 import { useUserRegistration } from "@/hooks/auth.hook";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 
 const Register = () => {
   const { mutate: handleRegister, isPending } = useUserRegistration();
+  const router = useRouter();
 
   const imageHostingURL = `https://api.imgbb.com/1/upload?key=${envConfig.imageToken}`;
 
@@ -36,7 +38,10 @@ const Register = () => {
         payment: "unpaid",
         isDeleted: false,
       };
+
       handleRegister(registerData);
+
+      router.push("/");
     } catch (err: any) {
       toast.error(err.message);
     }

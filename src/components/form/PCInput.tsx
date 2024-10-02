@@ -11,6 +11,7 @@ type TInputProps = {
   required?: boolean;
   label: string;
   type?: string;
+  defaultValue?: string;
 };
 
 const PCInput = ({
@@ -19,12 +20,14 @@ const PCInput = ({
   name,
   required = false,
   label,
+  defaultValue,
   type = "text",
 }: TInputProps) => {
   const { register } = useFormContext();
 
   return (
     <Input
+      defaultValue={defaultValue}
       variant={variant}
       {...register(name)}
       label={label}

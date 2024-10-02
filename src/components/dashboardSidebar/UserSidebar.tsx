@@ -5,7 +5,7 @@ import { Divider } from "@nextui-org/divider";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { FaCat, FaHome } from "react-icons/fa";
+import { FaCat, FaHome, FaUserCog } from "react-icons/fa";
 
 const UserSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +29,14 @@ const UserSidebar = () => {
         My post
       </Link>
 
+      <Link
+        href="/user-dashboard/my-profile"
+        className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
+      >
+        <FaUserCog />
+        My-profile
+      </Link>
+
       <Divider className="my-4 bg-white" />
 
       <Link
@@ -38,13 +46,8 @@ const UserSidebar = () => {
         <FaHome />
         Home
       </Link>
-      {/* <Link
-        href="/"
-        className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
-      >
-        <FaUserCog />
-        About
-      </Link>
+
+      {/*
       <Link
         href="/"
         className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"

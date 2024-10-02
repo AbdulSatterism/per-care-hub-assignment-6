@@ -10,6 +10,7 @@ type TInputProps = {
   required?: boolean;
   label: string;
   type?: string;
+  defaultValue?: string;
 };
 
 export default function PXTextarea({
@@ -17,6 +18,7 @@ export default function PXTextarea({
   label,
   variant = "bordered",
   required = false,
+  defaultValue,
 }: TInputProps) {
   const {
     register,
@@ -25,6 +27,7 @@ export default function PXTextarea({
 
   return (
     <Textarea
+      defaultValue={defaultValue}
       {...register(name)}
       required={required}
       label={label}

@@ -1,6 +1,10 @@
 "use client";
 import { useUser } from "@/context/user.provider";
-import { useIncrementDisLike, useIncrementLike } from "@/hooks/animal.hook";
+import {
+  useDeleteOwnPost,
+  useIncrementDisLike,
+  useIncrementLike,
+} from "@/hooks/animal.hook";
 import { useIncrementFollower } from "@/hooks/auth.hook";
 import { IAnimal } from "@/types";
 import { Card, CardBody } from "@nextui-org/card";
@@ -16,8 +20,10 @@ import {
 } from "@nextui-org/react";
 import { BiSolidDislike, BiSolidLike } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaCaretRight } from "react-icons/fa";
+import { FaCaretRight, FaTrash } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
+import UpdatePostModal from "../modal/updatePostModal";
+import CreateCommentModal from "../modal/CreateCommentModal";
 
 const Posts = ({ data }: { data: IAnimal[] }) => {
   const { user } = useUser();
@@ -28,6 +34,15 @@ const Posts = ({ data }: { data: IAnimal[] }) => {
 
   const { mutate: handleIncrementFollower, isPending: followerPending } =
     useIncrementFollower();
+
+  const { mutate: handleOwnDelete } = useDeleteOwnPost();
+
+  const handleDelete = (id: string) => {
+    const confirmed = window.confirm("Are you sure you want to delete post");
+    if (confirmed) {
+      handleOwnDelete(id);
+    }
+  };
 
   return (
     <div className="border border-black">
@@ -64,8 +79,20 @@ const Posts = ({ data }: { data: IAnimal[] }) => {
                     </Button>
                   </DropdownTrigger>
                   <DropdownMenu aria-label="Static Actions">
-                    <DropdownItem key="edit">Edit</DropdownItem>
-                    <DropdownItem key="delete">Delete</DropdownItem>
+                    <DropdownItem key="edit">
+                      <UpdatePostModal
+                        id={animal._id}
+                        description={animal.description}
+                      />
+                    </DropdownItem>
+                    <DropdownItem key="delete">
+                      <button
+                        onClick={() => handleDelete(animal._id)}
+                        className="text-red-600 p-2"
+                      >
+                        <FaTrash />
+                      </button>
+                    </DropdownItem>
                   </DropdownMenu>
                 </Dropdown>
               </div>
@@ -112,6 +139,10 @@ const Posts = ({ data }: { data: IAnimal[] }) => {
                 {animal?.disLike}
               </Button>
               <Input placeholder="Add a comment..." />
+              <CreateCommentModal
+                animal={animal?._id}
+                email={animal?.user?.email}
+              />
             </div>
           </CardBody>
         </Card>

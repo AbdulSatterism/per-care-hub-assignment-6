@@ -1,22 +1,16 @@
 "use client";
 
-import UpdatePostModal from "@/components/modal/updatePostModal";
-import { useUser } from "@/context/user.provider";
-import { animalForClient } from "@/hooks/animal.hook";
-import { useDeleteOwnPost } from "@/hooks/animal.hook";
+import PageLoading from "@/components/loading/PageLoading";
+import UpdatePostByAdminModal from "@/components/modal/updatePostByAdminModal";
+import { animalForClient, usePostDeleteByAdmin } from "@/hooks/animal.hook";
 import { IAnimal } from "@/types";
 
 import Image from "next/image";
 import { FaTrash } from "react-icons/fa";
 
-const MyPost = () => {
+const AllPost = () => {
   const { data, isPending } = animalForClient();
-  const { user } = useUser();
-  const { mutate: handleOwnDelete } = useDeleteOwnPost();
-
-  const myPostData = data?.data?.filter(
-    (animal: IAnimal) => animal.user._id === user?.userId
-  );
+  const { mutate: handleOwnDelete } = usePostDeleteByAdmin();
 
   const handleDelete = (id: string) => {
     const confirmed = window.confirm("Are you sure you want to delete post");
@@ -26,24 +20,27 @@ const MyPost = () => {
   };
 
   if (isPending) {
-    return <p>loading</p>;
+    return <PageLoading />;
   }
 
   return (
-    <div className="overflow-x-auto mt-10 p-6">
+    <div className="overflow-x-auto mt-10 p-4">
       <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
         <thead>
-          <tr className="text-lg text-center border-1 border-[#21acb1] text-[#21acb1]">
+          <tr className="text-lg text-center border-1 p-2 py-4 m-2 border-[#21acb1] text-[#21acb1]">
             <th>Image</th>
             <th>Category</th>
-            <th>Host</th>
+            <th>Host Name</th>
             <th>update</th>
             <th>delete</th>
           </tr>
         </thead>
         <tbody>
-          {myPostData?.map((animal: IAnimal) => (
-            <tr key={animal._id} className="border-1 border-[#21acb1] p-2">
+          {data?.data?.map((animal: IAnimal) => (
+            <tr
+              key={animal._id}
+              className="border-1 m-2 border-[#21acb1] p-2 py-4"
+            >
               <td>
                 <Image
                   src={animal?.image}
@@ -59,7 +56,7 @@ const MyPost = () => {
               <td className="text-center">{animal?.user?.name}</td>
 
               <td className="text-center">
-                <UpdatePostModal
+                <UpdatePostByAdminModal
                   id={animal._id}
                   description={animal.description}
                 />
@@ -81,4 +78,4 @@ const MyPost = () => {
   );
 };
 
-export default MyPost;
+export default AllPost;

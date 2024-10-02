@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaUserCog } from "react-icons/fa";
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,13 +27,22 @@ const AdminSidebar = () => {
         <FaHome />
         Home
       </Link>
-      {/* <Link
-        href="/"
+      <Link
+        href="/admin-dashboard/all-user"
         className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
       >
         <FaUserCog />
-        About
+        All user
       </Link>
+      <Link
+        href="/admin-dashboard/all-post"
+        className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
+      >
+        <FaUserCog />
+        All Post
+      </Link>
+
+      {/*
       <Link
         href="/"
         className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"

@@ -5,10 +5,14 @@ import Loading from "@/components/UI/Loading";
 import { useUserLogin } from "@/hooks/auth.hook";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import { FieldValues, SubmitHandler } from "react-hook-form";
 
 const Login = () => {
   const { mutate: handleLogin, isPending } = useUserLogin();
+
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const loginData = {
@@ -16,6 +20,7 @@ const Login = () => {
     };
 
     handleLogin(loginData);
+    router.push("/");
   };
 
   return (
@@ -25,10 +30,7 @@ const Login = () => {
       <div className="flex h-screen  p-6 bg-gray-100 w-full flex-col items-center justify-center shadow-xl">
         <h1 className="my-2 text-2xl font-bold uppercase">Login</h1>
         <div className="lg:w-[35%] md:w-[50%] w-full">
-          <PCForm
-            // resolver={zodResolver(loginValidationSchema)}
-            onSubmit={onSubmit}
-          >
+          <PCForm onSubmit={onSubmit}>
             <div className="py-3">
               <PCInput label="Email" required name="email" type="email" />
             </div>
