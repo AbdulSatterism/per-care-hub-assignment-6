@@ -6,7 +6,7 @@ import {
   useIncrementLike,
 } from "@/hooks/animal.hook";
 import { useIncrementFollower } from "@/hooks/auth.hook";
-import { IAnimal } from "@/types";
+import { IAnimal, IComment } from "@/types";
 import { Card, CardBody } from "@nextui-org/card";
 import {
   Avatar,
@@ -16,7 +16,6 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Image,
-  Input,
 } from "@nextui-org/react";
 import { BiSolidDislike, BiSolidLike } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -24,8 +23,15 @@ import { FaCaretRight, FaTrash } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import UpdatePostModal from "../modal/updatePostModal";
 import CreateCommentModal from "../modal/CreateCommentModal";
+import CommentSection from "./CommentSection";
 
-const Posts = ({ data }: { data: IAnimal[] }) => {
+const Posts = ({
+  data,
+  comments,
+}: {
+  data: IAnimal[];
+  comments: IComment[];
+}) => {
   const { user } = useUser();
   const { mutate: handleIncrementLike, isPending: isLikePending } =
     useIncrementLike();
@@ -138,7 +144,10 @@ const Posts = ({ data }: { data: IAnimal[] }) => {
                 <BiSolidDislike className="text-[#7f9599] text-xl" />
                 {animal?.disLike}
               </Button>
-              <Input placeholder="Add a comment..." />
+
+              {/* reviews */}
+              <CommentSection comments={comments} id={animal._id} />
+
               <CreateCommentModal
                 animal={animal?._id}
                 email={animal?.user?.email}

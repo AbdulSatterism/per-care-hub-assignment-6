@@ -49,3 +49,11 @@ export interface IUserAll {
   updatedAt: string;
   __v: number;
 }
+
+export interface IComment {
+  _id: string;
+  animal: string;
+  email: string;
+  comment: string;
+  __v: number;
+}
