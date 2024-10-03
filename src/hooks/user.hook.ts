@@ -10,6 +10,7 @@ import {
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
+import { payment } from "../services/User";
 
 export const getUserForProfile = () => {
   return useQuery({
@@ -57,6 +58,25 @@ export const useDeleteUserByAdmin = () => {
     mutationFn: async (id) => await deleteUserByAdmin(id),
     onSuccess: () => {
       toast.success("user deleted successfully");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+};
+
+export const usePayment = () => {
+  return useMutation<any, Error, any>({
+    mutationKey: ["PAYMENT"],
+    mutationFn: async (paymentData) => await payment(paymentData),
+    onSuccess: (data) => {
+      console.log(data);
+      // Assuming `data.url` is the payment URL returned by the backend
+      if (data?.data?.payment_url) {
+        window.location.href = data?.data?.payment_url;
+      } else {
+        toast.error("No payment URL received from the server.");
+      }
     },
     onError: (error) => {
       toast.error(error.message);

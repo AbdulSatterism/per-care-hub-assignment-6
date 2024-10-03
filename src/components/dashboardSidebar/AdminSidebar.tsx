@@ -1,9 +1,11 @@
 "use client";
 
 import { Button } from "@nextui-org/button";
+import { Divider } from "@nextui-org/divider";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 import { FaHome, FaUserCog } from "react-icons/fa";
 
 const AdminSidebar = () => {
@@ -13,20 +15,16 @@ const AdminSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  //   const handleLogout = () => {
-  //     logout();
-  //     setIsLoading(true);
-  //   };
-
   const sideLinks = (
     <>
       <Link
-        href="/"
+        href="/user-dashboard/admin-profile"
         className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
       >
-        <FaHome />
-        Home
+        <CgProfile />
+        Admin Profile
       </Link>
+
       <Link
         href="/admin-dashboard/all-user"
         className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
@@ -41,44 +39,14 @@ const AdminSidebar = () => {
         <FaUserCog />
         All Post
       </Link>
-
-      {/*
+      <Divider className="my-4" />
       <Link
         href="/"
-        className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
+        className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
       >
-        <MdOutlinePhonelinkSetup />
-        Contact
+        <FaHome />
+        Home
       </Link>
-
-      <Divider className="my-4" />
-
-      {user && user?.email ? (
-        <>
-          <Link
-            href="/"
-            className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
-          >
-            <CgProfile />
-            Profile
-          </Link>
-
-          <Divider className="my-4" />
-
-          <Button onClick={() => handleLogout()} variant="bordered">
-            Logout
-          </Button>
-        </>
-      ) : (
-        <>
-          <Link
-            href="/login"
-            className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
-          >
-            <Button variant="bordered">Login</Button>
-          </Link>
-        </>
-      )} */}
     </>
   );
 

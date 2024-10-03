@@ -5,9 +5,8 @@ import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
 import { FaHome, FaUserCog } from "react-icons/fa";
-import { MdOutlinePhonelinkSetup } from "react-icons/md";
+import { MdDashboard, MdOutlinePhonelinkSetup } from "react-icons/md";
 import { logout } from "@/services/AuthService";
 
 const Sidebar = () => {
@@ -34,14 +33,14 @@ const Sidebar = () => {
         Home
       </Link>
       <Link
-        href="/"
+        href="/about"
         className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
       >
         <FaUserCog />
         About
       </Link>
       <Link
-        href="/"
+        href="/contact"
         className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
       >
         <MdOutlinePhonelinkSetup />
@@ -50,21 +49,40 @@ const Sidebar = () => {
 
       <Divider className="my-4" />
 
+      {user && user?.role === "admin" ? (
+        <Link
+          href="/admin-dashboard"
+          className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
+        >
+          <MdDashboard />
+          Dashboard
+        </Link>
+      ) : (
+        <Link
+          href="/user-dashboard"
+          className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
+        >
+          <MdDashboard />
+          Dashboard
+        </Link>
+      )}
+
       {user && user?.email ? (
         <>
-          <Link
-            href="/"
-            className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
-          >
-            <CgProfile />
-            Profile
-          </Link>
-
           <Divider className="my-4" />
 
-          <Button onClick={() => handleLogout()} variant="bordered">
-            Logout
-          </Button>
+          <Link
+            href="/login"
+            className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
+          >
+            <Button
+              className="text-xl "
+              onClick={() => handleLogout()}
+              variant="bordered"
+            >
+              Logout
+            </Button>
+          </Link>
         </>
       ) : (
         <>
@@ -72,7 +90,9 @@ const Sidebar = () => {
             href="/login"
             className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
           >
-            <Button variant="bordered">Login</Button>
+            <Button className="text-xl" variant="bordered">
+              Login
+            </Button>
           </Link>
         </>
       )}

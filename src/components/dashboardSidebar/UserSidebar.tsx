@@ -5,7 +5,8 @@ import { Divider } from "@nextui-org/divider";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { FaCat, FaHome, FaUserCog } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { FaCat, FaHome } from "react-icons/fa";
 
 const UserSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,11 +14,6 @@ const UserSidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-
-  //   const handleLogout = () => {
-  //     logout();
-  //     setIsLoading(true);
-  //   };
 
   const sideLinks = (
     <>
@@ -33,7 +29,7 @@ const UserSidebar = () => {
         href="/user-dashboard/my-profile"
         className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
       >
-        <FaUserCog />
+        <CgProfile />
         My-profile
       </Link>
 
@@ -46,44 +42,6 @@ const UserSidebar = () => {
         <FaHome />
         Home
       </Link>
-
-      {/*
-      <Link
-        href="/"
-        className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
-      >
-        <MdOutlinePhonelinkSetup />
-        Contact
-      </Link>
-
-      <Divider className="my-4" />
-
-      {user && user?.email ? (
-        <>
-          <Link
-            href="/"
-            className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
-          >
-            <CgProfile />
-            Profile
-          </Link>
-
-          <Divider className="my-4" />
-
-          <Button onClick={() => handleLogout()} variant="bordered">
-            Logout
-          </Button>
-        </>
-      ) : (
-        <>
-          <Link
-            href="/login"
-            className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
-          >
-            <Button variant="bordered">Login</Button>
-          </Link>
-        </>
-      )} */}
     </>
   );
 

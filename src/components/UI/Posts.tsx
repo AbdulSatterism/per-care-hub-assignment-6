@@ -6,7 +6,6 @@ import {
   useIncrementLike,
 } from "@/hooks/animal.hook";
 import { useIncrementFollower } from "@/hooks/auth.hook";
-import { IAnimal, IComment } from "@/types";
 import { Card, CardBody } from "@nextui-org/card";
 import {
   Avatar,
@@ -19,11 +18,12 @@ import {
 } from "@nextui-org/react";
 import { BiSolidDislike, BiSolidLike } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaCaretRight, FaTrash } from "react-icons/fa";
+import { FaCaretRight, FaCrown, FaTrash } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import UpdatePostModal from "../modal/updatePostModal";
 import CreateCommentModal from "../modal/CreateCommentModal";
 import CommentSection from "./CommentSection";
+import { IAnimal, IComment } from "@/types";
 
 const Posts = ({
   data,
@@ -51,7 +51,7 @@ const Posts = ({
   };
 
   return (
-    <div className="border border-black">
+    <div className="border border-black w-full">
       {data?.map((animal: IAnimal) => (
         <Card
           key={animal?._id}
@@ -67,7 +67,12 @@ const Posts = ({
                   onClick={() => handleIncrementFollower(animal?.user?._id)}
                   variant="light"
                 >
-                  <IoMdNotifications className="text-[#05caec] text-xl" />
+                  {animal?.user?.payment === "paid" ? (
+                    <FaCrown className="text-yellow-500 text-xl" />
+                  ) : (
+                    <IoMdNotifications className="text-[#05caec] text-xl" />
+                  )}
+
                   {animal?.user?.follower}
                 </Button>
               </div>
@@ -85,7 +90,7 @@ const Posts = ({
                     </Button>
                   </DropdownTrigger>
                   <DropdownMenu aria-label="Static Actions">
-                    <DropdownItem key="edit">
+                    <DropdownItem>
                       <UpdatePostModal
                         id={animal._id}
                         description={animal.description}
@@ -109,7 +114,7 @@ const Posts = ({
             </p>
 
             <div>
-              {animal?.tips.map((tp, i) => (
+              {animal?.tips.map((tp: string, i: number) => (
                 <p key={i} className="flex text-[16px] items-center gap-1">
                   <FaCaretRight className="text-[#05caec]" />
                   {tp}

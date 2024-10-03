@@ -1,14 +1,28 @@
 "use client";
 import PageLoading from "@/components/loading/PageLoading";
 import UserUpdateModal from "@/components/modal/UserUpdateModal";
-import { getUserForProfile } from "@/hooks/user.hook";
+import { getUserForProfile, usePayment } from "@/hooks/user.hook";
 import { Button, Image } from "@nextui-org/react";
 
 const UserProfile = () => {
   const { data, isPending } = getUserForProfile();
+  const { mutate: initialPayment } = usePayment();
+
+  const handlePayment = () => {
+    const paymentInfo = {
+      customerName: data?.data?.name,
+      customerPhone: data?.data?.phone,
+      customerAddress: "Bangladesh",
+      customerEmail: data?.data?.email,
+      amount: 100,
+      rentalId: data?.data?._id,
+    };
+
+    initialPayment(paymentInfo);
+  };
 
   if (isPending) {
-    return <PageLoading/>
+    return <PageLoading />;
   }
 
   return (
@@ -37,6 +51,7 @@ const UserProfile = () => {
               phone={data?.data?.phone}
             />
             <Button
+              onClick={() => handlePayment()}
               variant="bordered"
               className="mt-4 px-4 py-2 bg-[#05caec] text-white rounded"
             >

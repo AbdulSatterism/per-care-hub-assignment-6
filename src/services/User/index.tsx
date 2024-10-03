@@ -53,3 +53,14 @@ export const deleteUserByAdmin = async (id: string) => {
     throw new Error(err);
   }
 };
+
+
+export const payment = async (paymentData:any) => {
+  try {
+    const { data } = await axiosInstance.post(`/rental-pay/pay`,paymentData);
+
+    return data;
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};
