@@ -2,6 +2,7 @@
 import PCForm from "@/components/form/PCForm";
 import PCInput from "@/components/form/PCInput";
 import Loading from "@/components/UI/Loading";
+import { useUser } from "@/context/user.provider";
 import { useUserLogin } from "@/hooks/auth.hook";
 import { Button } from "@nextui-org/button";
 import Image from "next/image";
@@ -13,6 +14,7 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 const Login = () => {
   const { mutate: handleLogin, isPending } = useUserLogin();
   const router = useRouter();
+  const { setIsLoading } = useUser();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const loginData = {
@@ -20,6 +22,7 @@ const Login = () => {
     };
 
     handleLogin(loginData);
+    setIsLoading(true);
     router.push("/");
   };
 

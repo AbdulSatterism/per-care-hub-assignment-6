@@ -4,6 +4,7 @@
 import PCForm from "@/components/form/PCForm";
 import PCInput from "@/components/form/PCInput";
 import Loading from "@/components/UI/Loading";
+import { useUser } from "@/context/user.provider";
 import { envConfig } from "@/envConfig";
 import { useUserRegistration } from "@/hooks/auth.hook";
 import { Button } from "@nextui-org/button";
@@ -16,6 +17,7 @@ import { toast } from "sonner";
 const Register = () => {
   const { mutate: handleRegister, isPending } = useUserRegistration();
   const router = useRouter();
+  const { setIsLoading } = useUser();
 
   const imageHostingURL = `https://api.imgbb.com/1/upload?key=${envConfig.imageToken}`;
 
@@ -41,7 +43,7 @@ const Register = () => {
       };
 
       handleRegister(registerData);
-
+      setIsLoading(true);
       router.push("/");
     } catch (err: any) {
       toast.error(err.message);
