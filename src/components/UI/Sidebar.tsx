@@ -49,7 +49,7 @@ const Sidebar = () => {
 
       <Divider className="my-4" />
 
-      {user && user?.role === "admin" ? (
+      {user?.role === "admin" && (
         <Link
           href="/admin-dashboard"
           className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
@@ -57,7 +57,9 @@ const Sidebar = () => {
           <MdDashboard />
           Dashboard
         </Link>
-      ) : (
+      )}
+
+      {user?.role === "user" && (
         <Link
           href="/user-dashboard"
           className=" flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
