@@ -5,7 +5,7 @@ type TRole = keyof typeof roleBasedRoutes;
 
 const AuthRoutes = ["/login", "/register"];
 const roleBasedRoutes = {
-  user: [/^\/profile/],
+  user: [/^\/user/],
   admin: [/^\/admin/],
 };
 
