@@ -18,7 +18,7 @@ const AdminSidebar = () => {
   const sideLinks = (
     <>
       <Link
-        href="/user-dashboard/admin-profile"
+        href="/admin-dashboard/admin-profile"
         className="flex p-2 text-xl hover:text-[#05caec] hover:bg-gray-100  rounded gap-2 items-center"
       >
         <CgProfile />
