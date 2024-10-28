@@ -29,7 +29,7 @@ const CreateCommentModal = ({
   return (
     <div>
       <PCModal
-        buttonClassName="w-full flex-1 text-xl"
+        buttonClassName="w-full flex-1 border-0"
         buttonText="add comment"
         title="Add Comment"
       >

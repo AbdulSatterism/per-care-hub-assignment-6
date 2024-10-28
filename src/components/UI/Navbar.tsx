@@ -2,15 +2,17 @@
 
 import {
   Image,
-  Input,
   Navbar,
   NavbarBrand,
   NavbarContent,
+  NavbarItem,
+  NavbarMenuToggle,
 } from "@nextui-org/react";
+import { ThemeSwitch } from "./Theme-switcher";
 
 const TopNavbar = () => {
   return (
-    <Navbar isBordered className="bg-white">
+    <Navbar isBordered className="bg-white dark:bg-[#18181B]">
       <NavbarBrand>
         <Image
           src="https://i.ibb.co.com/kMkdpLm/pet-Animal.jpg"
@@ -21,24 +23,19 @@ const TopNavbar = () => {
           Animal Care
         </span>
       </NavbarBrand>
-      <NavbarContent>
-        <Input
-          placeholder="Search..."
-          startContent={
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clipRule="evenodd"
-              />
-            </svg>
-          }
-        />
+
+      <NavbarContent
+        className="hidden sm:flex basis-1/5 sm:basis-full"
+        justify="end"
+      >
+        <NavbarItem className="hidden sm:flex gap-2">
+          <ThemeSwitch />
+        </NavbarItem>
+      </NavbarContent>
+
+      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+        <ThemeSwitch />
+        <NavbarMenuToggle />
       </NavbarContent>
     </Navbar>
   );

@@ -23,7 +23,7 @@ import { useCreateAnimal } from "@/hooks/animal.hook";
 
 const CreatePostModal = () => {
   const { user } = useUser();
-  const { mutate: handleCreateAnimalPost } = useCreateAnimal();
+  const { mutate: handleCreateAnimalPost, isPending } = useCreateAnimal();
   const {
     data: categoriesData,
     isLoading,
@@ -42,7 +42,7 @@ const CreatePostModal = () => {
   }
 
   const methods = useForm();
-  const { handleSubmit, control } = methods;
+  const { handleSubmit, control, reset } = methods;
   const { append, fields, remove } = useFieldArray({
     control,
     name: "tips",
@@ -76,6 +76,9 @@ const CreatePostModal = () => {
         tips: data.tips.map((tip: { value: string }) => tip.value),
       };
       handleCreateAnimalPost(postData);
+      if (!isPending) {
+        reset();
+      }
     } catch (err: any) {
       toast.error(err.message);
     }

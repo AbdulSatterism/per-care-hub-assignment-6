@@ -1,5 +1,4 @@
 import PageLoading from "@/components/loading/PageLoading";
-import Banner from "@/components/UI/Banner";
 import PostCreate from "@/components/UI/PostCreate";
 import Posts from "@/components/UI/Posts";
 import { getAnimalPosts } from "@/services/AnimalPosts";
@@ -13,7 +12,7 @@ export default async function Home() {
   return (
     <>
    
-        <Banner />
+        {/* <Banner /> */}
     
       <Suspense fallback={<PageLoading />}>
         <PostCreate />

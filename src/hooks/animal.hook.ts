@@ -5,6 +5,7 @@ import {
   createAnimalPost,
   deleteOwnPost,
   getAnimalFrClient,
+  incrementDisLike,
   incrementLike,
   postDeleteByAdmin,
   updateOwnPost,
@@ -97,7 +98,7 @@ export const useIncrementLike = () => {
 export const useIncrementDisLike = () => {
   return useMutation({
     mutationKey: ["DIS_LIKE"],
-    mutationFn: async (id: string) => await incrementLike(id),
+    mutationFn: async (id: string) => await incrementDisLike(id),
     onSuccess: () => {
       toast.success("downvote");
     },

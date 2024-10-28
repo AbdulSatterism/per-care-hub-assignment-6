@@ -102,7 +102,7 @@ const Sidebar = () => {
   );
 
   return (
-    <div className="flex bg-white">
+    <div className="flex bg-white dark:text-white dark:bg-[#18181B]">
       {/* Sidebar for larger screens */}
       <div
         style={{ height: "100vh", position: "sticky", left: "0", top: "0" }}
